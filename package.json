@@ -1,0 +1,13 @@
+{
+    "name": "storage",
+    "description": "通用的存储控制模块，支持localStorage、sessionStorage、flash、cookie、本地数据库、内存，并进行了默认的处理",
+    "version": "1.0.0",
+    "contributors": [
+        { "name": "Leo Wang", "email": "leowang721@gmail.com" }
+    ],
+    "dependencies": {
+    },
+    "repository": "git://github.com/leowang721/storage",
+    "main": "main",
+    "homepage": "http://github.com/leowang721/storage"
+}
