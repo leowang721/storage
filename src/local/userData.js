@@ -46,45 +46,61 @@ define( function ( require ) {
         实际上我们不应该直接使用它
         它只不过是在低版本IE的顶替localStorage的方案而已
      */
-    var storage = {
-        userData : null,
+    var userData = {
+        data : null,
         name : location.hostname,
         init:function(){
-            if (!UserData.userData) {
+            if (!userData.data) {
                 try {
-                    UserData.userData = document.createElement('INPUT');
-                    UserData.userData.type = "hidden";
-                    UserData.userData.style.display = "none";
-                    UserData.userData.addBehavior ("#default#userData");
-                    document.body.appendChild(UserData.userData);
+                    userData.data = document.createElement('input');
+                    userData.data.type = "hidden";
+                    userData.data.style.display = "none";
+                    userData.data.addBehavior("#default#userData");
+                    document.body.appendChild(userData.data);
                     var expires = new Date();
                     expires.setDate(expires.getDate()+365);
-                    UserData.userData.expires = expires.toUTCString();
+                    userData.data.expires = expires.toUTCString();
                 }
                 catch(e) {
                     return false;
                 }
             }
             return true;
+        }
+    };
+
+    var storage = {
+        enabled : true,
+        onstorage : null,
+        getItem : function(key) {
+            if(userData.init()){
+                userData.data.load(userData.name);
+                return userData.data.getAttribute(key);
+            }
         },
         setItem : function(key, value) {
-            if(UserData.init()){
-                UserData.userData.load(UserData.name);
-                UserData.userData.setAttribute(key, value);
-                UserData.userData.save(UserData.name);
+            if(userData.init()){
+                userData.data.load(userData.name);
+                userData.data.setAttribute(key, value);
+                userData.data.save(userData.name);
+                if('function' === typeof this.onstorage) {
+                    this.onstorage.call(this, 'set', key, value);
+                }
             }
         },
-        getItem : function(key) {
-            if(UserData.init()){
-                UserData.userData.load(UserData.name);
-                return UserData.userData.getAttribute(key);
+        removeItem : function(key) {
+            if(userData.init()){
+                userData.data.load(userData.name);
+                userData.data.removeAttribute(key);
+                userData.data.save(userData.name);
+            }
+            if('function' === typeof this.onstorage) {
+                this.onstorage.call(this, 'remove', key);
             }
         },
-        remove : function(key) {
-            if(UserData.init()){
-                UserData.userData.load(UserData.name);
-                UserData.userData.removeAttribute(key);
-                UserData.userData.save(UserData.name);
+        clear: function() {
+            if('function' === typeof this.onstorage) {
+                this.onstorage.call(this, 'clear');
             }
         }
     };
