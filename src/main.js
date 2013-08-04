@@ -5,17 +5,11 @@
 
 define( function ( require ) {
         
-    // 本地存储，IE8+，FF3+，Opera10.5+，Chrome4+，Safari4+，iPhone2+，Android2+
+    // 本地存储
     var local = require('./local');
 
-    // userData Storage for IE
-    var userData = require('./userData');
-
-    // flash Storage
-    var flash = require('./flash');
-
-    // cookie
-    var cookie = require('./cookie');
+    // session
+    var session = require('./session');
 
     // 进行默认的初始化处理，返回一个最通用的存储形式
     // 在此，使用了能力检测，而不是浏览器检测

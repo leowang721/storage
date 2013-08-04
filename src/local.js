@@ -24,7 +24,7 @@ define( function ( require ) {
             }
             else {
                 return {
-                    enabled: false;
+                    enabled: false
                 }
             }
         }

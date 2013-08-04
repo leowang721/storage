@@ -5,8 +5,6 @@
  */
 
 define( function ( require ) {
-
-    var $ = require('jquery');
     
     /**
      * 本地存储
@@ -70,15 +68,17 @@ define( function ( require ) {
         if('undefined' === typeof val) {
             return null;
         }
+
+        return val;
     };
 
     /**
      * 将value存储到key字段
      */
     storage.setItem = function(key, val) {
-        _store.setItem(key,value);
+        _store.setItem(key, val);
         if('function' === typeof this.onstorage) {
-            this.onstorage.call(this, 'set', key, value);
+            this.onstorage.call(this, 'set', key, val);
         }
         return _store;
     };
