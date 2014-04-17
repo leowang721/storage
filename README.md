@@ -10,8 +10,10 @@ storage是一个简单的通用存储控制模块，当前支持localStorage、s
 + 针对localStorage和sessionStorage提供了JSON支持
 + 所有模式的调用均为统一方式
 
-- [Start](#start)
-- [Usage](#usage)
+GOGOGO：
+
++ [Start](#start)
++ [Usage](#usage)
 
 ## Start
 可以直接在CommonJS/AMD的模块定义环境下使用
